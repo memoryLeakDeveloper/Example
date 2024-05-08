@@ -13,16 +13,3 @@ import com.example.feature.search.ui.screen.SearchViewModel
 
 interface FeatureSearchApi : FeatureApi
 
-class FeatureSearchApiImpl : FeatureSearchApi {
-
-    override fun registerGraph(navController: NavHostController, navGraphBuilder: NavGraphBuilder) {
-        navGraphBuilder.navigation(route = Screens.FEATURE_SEARCH, startDestination = SearchFeature.searchScreenRoute) {
-            composable(SearchFeature.searchScreenRoute) {
-                val viewModel = hiltViewModel<SearchViewModel>()
-                SearchScreen(viewModel = viewModel) {
-                    navController.navigate(Screens.FEATURE_SEARCH)
-                }
-            }
-        }
-    }
-}

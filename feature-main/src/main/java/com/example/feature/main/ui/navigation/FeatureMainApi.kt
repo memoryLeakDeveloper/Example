@@ -10,17 +10,3 @@ import com.example.feature.api.FeatureApi
 import com.example.feature.main.ui.screen.MainScreen
 
 interface FeatureMainApi : FeatureApi
-
-class FeatureMainApiImpl : FeatureMainApi {
-
-
-    override fun registerGraph(navController: NavHostController, navGraphBuilder: NavGraphBuilder) {
-        navGraphBuilder.navigation(route = Screens.FEATURE_MAIN, startDestination = SearchFeature.searchScreenRoute) {
-            composable(SearchFeature.searchScreenRoute) {
-                MainScreen() {
-                    navController.navigate(Screens.FEATURE_SEARCH)
-                }
-            }
-        }
-    }
-}

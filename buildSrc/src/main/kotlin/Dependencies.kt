@@ -6,7 +6,7 @@ object Dependencies {
     const val composeUi = "androidx.compose.ui:ui:${Versions.compose}"
     const val composeUiGraphics = "androidx.compose.ui:ui-graphics:${Versions.compose}"
     const val composeUiTooling = "androidx.compose.ui:ui-tooling:${Versions.compose}"
-    const val composeUiToolingPreview = "androidx.compose.ui:ui-tooling-preview:${Versions.compose}"
+    const val composeUiToolingPreview = "androidx.compose.ui:ui-tooling-preview:${Versions.composePreview}"
     const val composeRuntime = "androidx.compose.runtime:runtime:${Versions.compose}"
 
     const val hiltAndroid = "com.google.dagger:hilt-android:${Versions.hilt}"
@@ -17,6 +17,7 @@ object Dependencies {
     const val ktorClientSerialization = "io.ktor:ktor-client-serialization:${Versions.ktor}"
     const val kotlinxSerialiation = "org.jetbrains.kotlinx:kotlinx-serialization-json:${Versions.ktorSerialization}"
     const val ktorClientLogging = "io.ktor:ktor-client-logging-jvm:${Versions.ktor}"
+    const val ktorSerialization = "org.jetbrains.kotlin:kotlin-serialization:${Versions.kotlin}"
 
     const val roomRuntime = "androidx.room:room-runtime:${Versions.room}"
     const val roomCompiler = "androidx.room:room-compiler:${Versions.room}"
@@ -24,6 +25,8 @@ object Dependencies {
 
     const val navigationCompose = "androidx.navigation:navigation-compose:${Versions.navigationCompose}"
     const val hiltComposeNavigation = "androidx.hilt:hilt-navigation-compose:${Versions.hiltComposeNavigation}"
+
+    const val coil = "io.coil-kt:coil-compose:${Versions.coil}"
 }
 
 fun DependencyHandler.room() {
@@ -45,6 +48,7 @@ fun DependencyHandler.compose() {
     implementation(Dependencies.composeUiGraphics)
     implementation(Dependencies.composeUiTooling)
     implementation(Dependencies.composeMaterial)
+    implementation(Dependencies.coil)
     debugImplementation(Dependencies.composeUiToolingPreview)
 }
 
@@ -81,4 +85,16 @@ fun DependencyHandler.featureSearch() {
 
 fun DependencyHandler.featureMain() {
     implementation(project(":feature-main"))
+}
+
+fun DependencyHandler.featureMatches() {
+    implementation(project(":feature-matches"))
+}
+
+fun DependencyHandler.featurePlayers() {
+    implementation(project(":feature-players"))
+}
+
+fun DependencyHandler.featurePlayerProfile() {
+    implementation(project(":feature-player-profile"))
 }

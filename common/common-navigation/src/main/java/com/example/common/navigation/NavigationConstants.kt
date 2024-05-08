@@ -1,10 +1,11 @@
 package com.example.common.navigation
 
-object Screens {
+enum class Screens(val routeWithParams: String) {
 
-    const val FEATURE_MAIN = "feature_main"
-
-    const val FEATURE_SEARCH = "feature_search"
+    FEATURE_MAIN("FEATURE_MAIN"),
+    FEATURE_PLAYERS("FEATURE_PLAYERS"),
+    FEATURE_MATCHES("FEATURE_MATCHES"),
+    FEATURE_PLAYER_PROFILE("FEATURE_PLAYER_PROFILE/{accountId}"),
 
 }
 

@@ -1,17 +1,13 @@
 package com.foe.common.api
 
-import io.ktor.client.HttpClient
-import io.ktor.client.engine.android.Android
-import io.ktor.client.features.HttpTimeout
-import io.ktor.client.features.defaultRequest
-import io.ktor.client.features.json.JsonFeature
-import io.ktor.client.features.json.serializer.KotlinxSerializer
-import io.ktor.client.features.logging.LogLevel
-import io.ktor.client.features.logging.Logging
-import io.ktor.client.request.accept
-import io.ktor.http.ContentType
-import io.ktor.http.HttpMethod
-import io.ktor.http.contentType
+import io.ktor.client.*
+import io.ktor.client.engine.android.*
+import io.ktor.client.features.*
+import io.ktor.client.features.json.*
+import io.ktor.client.features.json.serializer.*
+import io.ktor.client.features.logging.*
+import io.ktor.client.request.*
+import io.ktor.http.*
 
 class ApiService {
 
@@ -41,7 +37,7 @@ class ApiService {
 
     companion object {
         const val BASE_URL = "https://api.opendota.com/api"
-        const val MATCHES = "$BASE_URL/proMatches"
+        const val PRO_MATCHES = "$BASE_URL/proMatches"
         const val PLAYERS_SEARCH = "$BASE_URL/search"
         const val PLAYER_INFO = "$BASE_URL/players"
         const val MATCHES_LIVE = "$BASE_URL/live"

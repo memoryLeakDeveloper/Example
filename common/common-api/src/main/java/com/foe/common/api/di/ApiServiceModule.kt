@@ -4,13 +4,16 @@ import com.foe.common.api.ApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.components.SingletonComponent
-import io.ktor.client.features.get
+import io.ktor.client.*
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 class ApiServiceModule {
 
     @Provides
-    fun provideApi() = ApiService().create()
+    @Singleton
+    fun provideHttpClient(): HttpClient = ApiService().create()
 }

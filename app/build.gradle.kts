@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("dagger.hilt.android.plugin")
+    id("org.jetbrains.kotlin.plugin.serialization")
     kotlin("kapt")
 }
 
@@ -22,7 +23,10 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
     compileOptions {
@@ -64,7 +68,10 @@ dependencies {
     hilt()
     featureSearch()
     commonNavigation()
-    
+
     featureApi()
     featureMain()
+    featureMatches()
+    featurePlayers()
+    featurePlayerProfile()
 }
