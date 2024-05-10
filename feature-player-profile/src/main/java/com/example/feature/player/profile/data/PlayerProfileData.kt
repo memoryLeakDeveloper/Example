@@ -16,5 +16,5 @@ fun PlayerProfileData.mapToDomain() = PlayerProfileDomainData(
     competitiveRank,
     rankTier,
     leaderboardRank,
-    profile
+    profile.mapToDomain(),
 )

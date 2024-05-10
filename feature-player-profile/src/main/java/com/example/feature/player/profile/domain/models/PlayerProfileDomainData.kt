@@ -7,5 +7,5 @@ data class PlayerProfileDomainData(
     val competitiveRank: Long = 0,
     val rankTier: Long = 0,
     val leaderboardRank: Long = 0,
-    val profile: PlayerInfoData = PlayerInfoData(),
+    val profile: PlayerInfoDomainData = PlayerInfoDomainData(),
 )

@@ -16,7 +16,7 @@
           </compositeBuild>
         </compositeConfiguration>
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="gradleJvm" value="openjdk-18" />
+        <option name="gradleJvm" value="corretto-18" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
@@ -32,6 +32,9 @@
             <option value="$PROJECT_DIR$/core/feature-api" />
             <option value="$PROJECT_DIR$/core/utils" />
             <option value="$PROJECT_DIR$/feature-main" />
+            <option value="$PROJECT_DIR$/feature-matches" />
+            <option value="$PROJECT_DIR$/feature-player-profile" />
+            <option value="$PROJECT_DIR$/feature-players" />
             <option value="$PROJECT_DIR$/feature-search" />
           </set>
         </option>

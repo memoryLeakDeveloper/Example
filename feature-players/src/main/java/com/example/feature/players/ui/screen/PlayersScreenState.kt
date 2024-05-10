@@ -5,6 +5,7 @@ import com.example.feature.players.ui.models.PlayerUiData
 
 data class PlayersScreenState(
     val list: List<PlayerUiData> = emptyList(),
+    val isRefresh: Boolean = false,
     override val isLoading: Boolean = false,
     override val isError: Boolean = false,
     override val error: Throwable? = null

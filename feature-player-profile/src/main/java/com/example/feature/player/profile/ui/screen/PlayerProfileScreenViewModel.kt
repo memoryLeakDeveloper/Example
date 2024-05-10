@@ -1,6 +1,5 @@
 package com.example.feature.player.profile.ui.screen
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.feature.player.profile.domain.usecase.FetchPlayerProfileFromCloudUseCase
@@ -34,8 +33,9 @@ class PlayerProfileScreenViewModel @Inject constructor(private val fetchPlayerPr
                 it.getResult(
                     success = {
                         val result = it.result
-                        Log.d("bugger", "size = ${result}")
-
+                        _state.update {
+                            it.copy(profile = result.mapToUi())
+                        }
                     },
                     loading = {
 
