@@ -5,7 +5,7 @@ name: build_artifacts_on_release
 on:
  pull_request:
    branches:
-     - 'main'
+     - 'release'
 
 jobs:
    build_apk_aab:
