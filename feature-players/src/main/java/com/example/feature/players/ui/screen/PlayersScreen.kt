@@ -9,9 +9,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -47,10 +47,14 @@ import kotlin.math.roundToInt
 @Composable
 fun PlayersScreen(
     viewModel: PlayersScreenViewModel = hiltViewModel(),
-    navigateToProfile: (Long) -> Unit,
+    navigateToProfile: (Long, String) -> Unit,
 ) {
 
-    PlayersScreenUI(viewModel.state.collectAsState(), viewModel::onEvent, navigateToProfile)
+    PlayersScreenUI(
+        viewModel.state.collectAsState(),
+        viewModel::onEvent,
+        navigateToProfile,
+    )
 
 }
 
@@ -59,16 +63,16 @@ fun PlayersScreen(
 fun PlayersScreenUI(
     state: State<PlayersScreenState>,
     onEvent: (PlayersScreenIntent) -> Unit,
-    navigateToProfile: (Long) -> Unit
+    navigateToProfile: (Long, String) -> Unit,
 ) {
 
     var searchFieldValue by rememberSaveable { mutableStateOf("") }
-    val lazyColumnState = remember { LazyListState() }
+    val lazyColumnState = rememberLazyListState()
     val focusRequester = remember { FocusRequester() }
     val focusManager = LocalFocusManager.current
-    val onClickItem: (Long) -> Unit = {
+    val onClickItem: (Long, String) -> Unit = { id, name ->
         focusManager.clearFocus()
-        navigateToProfile(it)
+        navigateToProfile(id, name)
     }
     val pullRefreshState = rememberPullToRefreshState()
     val hapticFeedback = LocalHapticFeedback.current
@@ -111,8 +115,6 @@ fun PlayersScreenUI(
         if (!state.value.isRefresh)
             pullRefreshState.endRefresh()
     }
-
-
 
     Box(
         modifier = Modifier
@@ -175,5 +177,5 @@ private fun fakeList(): List<Unit> {
 @Composable
 fun PlayersScreenPreview() {
     val state = mutableStateOf(PlayersScreenState())
-    PlayersScreenUI(state, {}, {})
+    PlayersScreenUI(state, {}, { _, _ -> })
 }

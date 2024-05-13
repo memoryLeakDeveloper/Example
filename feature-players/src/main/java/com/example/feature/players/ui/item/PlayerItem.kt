@@ -1,5 +1,6 @@
 package com.example.feature.players.ui.item
 
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -27,11 +28,15 @@ import com.example.feature.players.R
 import com.example.feature.players.ui.models.PlayerUiData
 
 @Composable
-fun PlayerItem(modifier: Modifier, item: PlayerUiData, onClick: (Long) -> Unit) {
+fun PlayerItem(
+    modifier: Modifier,
+    item: PlayerUiData,
+    onClick: (Long, String) -> Unit,
+) {
     Surface(
         modifier = modifier
             .padding(top = 8.dp, start = 10.dp, end = 10.dp)
-            .clickable { onClick(item.accountId) },
+            .clickable { onClick(item.accountId, item.name) },
         shadowElevation = 9.dp,
         shape = RoundedCornerShape(10.dp)
     ) {
@@ -56,6 +61,7 @@ fun PlayerItem(modifier: Modifier, item: PlayerUiData, onClick: (Long) -> Unit) 
                 modifier = Modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.Start
             ) {
+                Log.d("bugger", "PlayerItem ${item.name}")
                 Text(text = item.name, maxLines = 1, overflow = TextOverflow.Ellipsis)
             }
             Spacer(modifier = Modifier.height(4.dp))
@@ -68,5 +74,5 @@ fun PlayerItem(modifier: Modifier, item: PlayerUiData, onClick: (Long) -> Unit) 
 @Composable
 private fun PlayerItemPreview() {
     val item = PlayerUiData(name = "1111", lastMitchTime = "2019-11-15T17:45:39.000Z")
-    PlayerItem(Modifier, item, {})
+    PlayerItem(Modifier, item, { _, _ -> })
 }

@@ -1,5 +1,7 @@
 package com.example.feature.player.profile.ui.screen
 
+import android.util.Log
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -24,21 +26,22 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
-import com.example.common.navigation.Screens
 import com.example.feature.player.profile.R
 
 @Composable
 fun PlayerProfileScreen(
     accountId: Long = 0,
+    accountName: String = "",
     viewModel: PlayerProfileScreenViewModel = hiltViewModel(),
-    navigateTo: (Screens) -> Unit,
+    onBackPressed: () -> Unit,
 ) {
 
     PlayerProfileScreenUI(
         accountId,
+        accountName,
         viewModel::onEvent,
         viewModel.state.collectAsState(),
-        navigateTo
+        onBackPressed
     )
 
 }
@@ -46,10 +49,15 @@ fun PlayerProfileScreen(
 @Composable
 fun PlayerProfileScreenUI(
     accountId: Long = 0,
+    accountName: String = "",
     onEvent: (PlayerProfileScreenIntent) -> Unit,
     state: State<PlayerProfileScreenState>,
-    navigateTo: (Screens) -> Unit
+    onBackPressed: () -> Unit,
 ) {
+
+    BackHandler {
+        onBackPressed()
+    }
 
     LaunchedEffect(key1 = null, block = {
         onEvent(PlayerProfileScreenIntent.OnLoadProfile(accountId))
@@ -76,6 +84,8 @@ fun PlayerProfileScreenUI(
                 contentScale = ContentScale.Crop,
                 contentDescription = null
             )
+            Log.d("bugger", "PlayerItem ${accountName}")
+
             Spacer(modifier = Modifier.height(20.dp))
             Text(text = state.value.profile?.profile?.personaName ?: "")
         }
@@ -86,5 +96,5 @@ fun PlayerProfileScreenUI(
 @Composable
 fun PlayerProfileScreenPreview() {
     val state = mutableStateOf(PlayerProfileScreenState())
-    PlayerProfileScreenUI(0, {}, state, {})
+    PlayerProfileScreenUI(0, "", {}, state, {})
 }

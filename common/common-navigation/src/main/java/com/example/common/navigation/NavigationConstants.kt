@@ -1,18 +1,20 @@
 package com.example.common.navigation
 
-enum class Screens(val routeWithParams: String) {
+import kotlinx.serialization.Serializable
 
-    FEATURE_MAIN("FEATURE_MAIN"),
-    FEATURE_PLAYERS("FEATURE_PLAYERS"),
-    FEATURE_MATCHES("FEATURE_MATCHES"),
-    FEATURE_PLAYER_PROFILE("FEATURE_PLAYER_PROFILE/{accountId}"),
+@Serializable
+sealed interface Screens {
 
-}
+    @Serializable
+    object Main : Screens
 
-object SearchFeature {
+    @Serializable
+    object Players : Screens
 
-    const val searchRoute = "search_nested_route"
+    @Serializable
+    object Matches : Screens
 
-    const val searchScreenRoute = "search_screen_route"
+    @Serializable
+    data class PlayerProfile(val accountId: Long, val accountName: String) : Screens
 
 }

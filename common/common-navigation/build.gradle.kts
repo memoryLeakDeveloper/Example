@@ -1,6 +1,7 @@
 plugins {
     `android-library`
     `kotlin-android`
+    id("org.jetbrains.kotlin.plugin.serialization")
 }
 
 apply<MainGradlePlugin>()
@@ -13,5 +14,6 @@ dependencies {
 
     navigation()
     hilt()
+    implementation(Dependencies.kotlinxSerialiation)
 
 }

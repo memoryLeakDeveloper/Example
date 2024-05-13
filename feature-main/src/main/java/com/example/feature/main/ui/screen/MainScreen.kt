@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
@@ -40,7 +39,7 @@ fun MainScreenUI(
             modifier = Modifier
                 .wrapContentWidth()
                 .height(50.dp),
-            onClick = { navigateTo(Screens.FEATURE_PLAYERS) }) {
+            onClick = { navigateTo(Screens.Players) }) {
             Text(text = "Players")
         }
         Spacer(modifier = Modifier.height(20.dp))
@@ -48,7 +47,7 @@ fun MainScreenUI(
             modifier = Modifier
                 .wrapContentWidth()
                 .height(50.dp),
-            onClick = { navigateTo(Screens.FEATURE_MATCHES) }) {
+            onClick = { navigateTo(Screens.Matches) }) {
             Text(text = "Matches")
         }
     }
