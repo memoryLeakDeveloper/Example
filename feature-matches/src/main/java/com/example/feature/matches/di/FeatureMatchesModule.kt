@@ -6,12 +6,10 @@ import com.example.feature.matches.data.cloud.MatchesSearchCloudDataSourceImpl
 import com.example.feature.matches.domain.FetchListMatchesFromCloudUseCase
 import com.example.feature.matches.domain.FetchListMatchesFromCloudUseCaseImpl
 import com.example.feature.matches.domain.MatchesRepository
-import com.foe.common.api.ApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
-import io.ktor.client.*
 
 @Module
 @InstallIn(ViewModelComponent::class)

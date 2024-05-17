@@ -32,9 +32,9 @@ object Dependencies {
 }
 
 fun DependencyHandler.room() {
-    implementation(Dependencies.roomRuntime)
-    implementation(Dependencies.roomKtx)
-    kapt(Dependencies.roomCompiler)
+//    implementation(Dependencies.roomRuntime)
+//    implementation(Dependencies.roomKtx)
+//    kapt(Dependencies.roomCompiler)
 }
 
 fun DependencyHandler.ktor() {

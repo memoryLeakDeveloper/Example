@@ -23,7 +23,7 @@ dependencies {
     hilt()
     compose()
     navigation()
-    featureApi()
+
     commonNavigation()
     ktor()
     commonApi()
