@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.material3.Button
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
@@ -34,29 +33,27 @@ fun MainScreenUI(
     state: State<MainScreenState>,
     navigateTo: (Screens) -> Unit,
 ) {
-    Scaffold {
-        Column(modifier = Modifier
-            .padding(it)
-            .padding(horizontal = 10.dp)) {
-            Spacer(modifier = Modifier.padding(10.dp))
-            Button(
-                modifier = Modifier
-                    .wrapContentWidth()
-                    .height(50.dp),
-                onClick = { navigateTo(Screens.Players) }) {
-                Text(text = "Players")
-            }
-            Spacer(modifier = Modifier.height(20.dp))
-            Button(
-                modifier = Modifier
-                    .wrapContentWidth()
-                    .height(50.dp),
-                onClick = { navigateTo(Screens.Matches) }) {
-                Text(text = "Matches")
-            }
+    Column(
+        modifier = Modifier
+            .padding(horizontal = 10.dp)
+    ) {
+        Spacer(modifier = Modifier.padding(10.dp))
+        Button(
+            modifier = Modifier
+                .wrapContentWidth()
+                .height(50.dp),
+            onClick = { navigateTo(Screens.Players) }) {
+            Text(text = "Players")
+        }
+        Spacer(modifier = Modifier.height(20.dp))
+        Button(
+            modifier = Modifier
+                .wrapContentWidth()
+                .height(50.dp),
+            onClick = { navigateTo(Screens.Matches) }) {
+            Text(text = "Matches")
         }
     }
-
 }
 
 @Preview
