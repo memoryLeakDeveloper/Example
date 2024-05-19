@@ -14,6 +14,7 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.pulltorefresh.PullToRefreshContainer
 import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
@@ -116,51 +117,54 @@ fun PlayersScreenUI(
             pullRefreshState.endRefresh()
     }
 
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .nestedScroll(pullRefreshState.nestedScrollConnection)
-    ) {
-        Column(Modifier.fillMaxSize()) {
-            OutlinedTextField(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 10.dp)
-                    .focusRequester(focusRequester),
-                value = searchFieldValue,
-                onValueChange = {
-                    searchFieldValue = it
-                    onEvent(PlayersScreenIntent.OnSearchFieldValueChanged(it))
-                }, label = { Text("Введите имя игрока") }
-            )
-            LazyColumn(modifier = Modifier.weight(1f), lazyColumnState) {
-                if (state.value.isLoading)
-                    items(fakeList()) {
-                        PlayerShimmerItem()
-                    }
-                else
-                    itemsIndexed(state.value.list) { index, item ->
-                        PlayerItem(
-                            Modifier
-                                .zIndex((state.value.list.size - index).toFloat())
-                                .graphicsLayer {
-                                    rotationZ = cardRotation * if (index % 2 == 0) 1 else -1
-                                    translationY = (cardOffset * ((5f - (index + 1)) / 30f)).dp
-                                        .roundToPx()
-                                        .toFloat()
-                                }, item, onClickItem
-                        )
-                    }
-            }
+    Scaffold(modifier = Modifier.fillMaxSize()) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(it)
+                .nestedScroll(pullRefreshState.nestedScrollConnection)
+        ) {
+            Column(Modifier.fillMaxSize()) {
+                OutlinedTextField(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 10.dp)
+                        .focusRequester(focusRequester),
+                    value = searchFieldValue,
+                    onValueChange = {
+                        searchFieldValue = it
+                        onEvent(PlayersScreenIntent.OnSearchFieldValueChanged(it))
+                    }, label = { Text("Введите имя игрока") }
+                )
+                LazyColumn(modifier = Modifier.weight(1f), lazyColumnState) {
+                    if (state.value.isLoading)
+                        items(fakeList()) {
+                            PlayerShimmerItem()
+                        }
+                    else
+                        itemsIndexed(state.value.list) { index, item ->
+                            PlayerItem(
+                                Modifier
+                                    .zIndex((state.value.list.size - index).toFloat())
+                                    .graphicsLayer {
+                                        rotationZ = cardRotation * if (index % 2 == 0) 1 else -1
+                                        translationY = (cardOffset * ((5f - (index + 1)) / 30f)).dp
+                                            .roundToPx()
+                                            .toFloat()
+                                    }, item, onClickItem
+                            )
+                        }
+                }
 
-            if (pullRefreshState.isRefreshing) {
-                PullToRefreshContainer(state = pullRefreshState)
+                if (pullRefreshState.isRefreshing) {
+                    PullToRefreshContainer(state = pullRefreshState)
+                }
             }
+            PullToRefreshContainer(
+                state = pullRefreshState,
+                modifier = Modifier.align(Alignment.TopCenter),
+            )
         }
-        PullToRefreshContainer(
-            state = pullRefreshState,
-            modifier = Modifier.align(Alignment.TopCenter),
-        )
     }
 }
 
