@@ -70,4 +70,5 @@ dependencies {
     featureMatches()
     featurePlayers()
     featurePlayerProfile()
+    featureSplashScreen()
 }

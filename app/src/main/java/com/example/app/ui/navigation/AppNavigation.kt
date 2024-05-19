@@ -15,11 +15,21 @@ import com.example.feature.player.profile.ui.screen.PlayerProfileScreen
 import com.example.feature.player.profile.ui.screen.PlayerProfileScreenViewModel
 import com.example.feature.players.ui.screen.PlayersScreen
 import com.example.feature.players.ui.screen.PlayersScreenViewModel
+import com.example.feature.splashscreen.SplashScreen
 
 @Composable
 fun AppNavGraph(navController: NavHostController) {
 
-    NavHost(navController = navController, startDestination = Screens.Main) {
+    NavHost(navController = navController, startDestination = Screens.Splash) {
+        composable<Screens.Splash> {
+            SplashScreen {
+                navController.navigate(Screens.Main) {
+                    popUpTo(Screens.Splash) {
+                        inclusive = true
+                    }
+                }
+            }
+        }
         composable<Screens.Main> {
             MainScreen(viewModel = hiltViewModel<MainScreenViewModel>()) {
                 when (it) {

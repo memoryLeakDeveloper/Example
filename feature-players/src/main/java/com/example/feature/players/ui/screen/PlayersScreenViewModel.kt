@@ -1,6 +1,8 @@
 package com.example.feature.players.ui.screen
 
 import android.util.Log
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.feature.players.domain.usecase.FetchListPlayersFromCloudUseCase
@@ -70,4 +72,9 @@ class PlayersScreenViewModel @Inject constructor(private val fetchListPlayersFro
     }
 
 
+}
+
+@Composable
+inline fun <T : Any> PlayersScreenViewModel.rememberOnEvent(intent: PlayersScreenIntent): ((T) -> Unit) {
+    return remember { { (this::onEvent)(intent) } }
 }

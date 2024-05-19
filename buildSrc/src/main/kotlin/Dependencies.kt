@@ -103,3 +103,7 @@ fun DependencyHandler.featurePlayers() {
 fun DependencyHandler.featurePlayerProfile() {
     implementation(project(":feature-player-profile"))
 }
+
+fun DependencyHandler.featureSplashScreen() {
+    implementation(project(":feature-splashscreen"))
+}

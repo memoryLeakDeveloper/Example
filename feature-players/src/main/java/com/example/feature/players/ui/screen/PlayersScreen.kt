@@ -52,7 +52,7 @@ fun PlayersScreen(
 
     PlayersScreenUI(
         viewModel.state.collectAsState(),
-        viewModel::onEvent,
+        remember { viewModel::onEvent },
         navigateToProfile,
     )
 
@@ -76,7 +76,6 @@ fun PlayersScreenUI(
     }
     val pullRefreshState = rememberPullToRefreshState()
     val hapticFeedback = LocalHapticFeedback.current
-
     val cardOffset by animateIntAsState(
         targetValue = when {
             pullRefreshState.isRefreshing -> 250
@@ -94,7 +93,8 @@ fun PlayersScreenUI(
         }, label = "cardRotation"
     )
     LaunchedEffect(Unit) {
-        focusRequester.requestFocus()
+        if (searchFieldValue.isBlank())
+            focusRequester.requestFocus()
     }
 
     LaunchedEffect(pullRefreshState.isRefreshing) {
@@ -145,9 +145,9 @@ fun PlayersScreenUI(
                                 .zIndex((state.value.list.size - index).toFloat())
                                 .graphicsLayer {
                                     rotationZ = cardRotation * if (index % 2 == 0) 1 else -1
-//                                translationY = (cardOffset * ((5f - (index + 1)) / 5f)).dp
-//                                    .roundToPx()
-//                                    .toFloat()
+                                    translationY = (cardOffset * ((5f - (index + 1)) / 30f)).dp
+                                        .roundToPx()
+                                        .toFloat()
                                 }, item, onClickItem
                         )
                     }
