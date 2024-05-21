@@ -1,5 +1,6 @@
 package com.example.feature.player.profile.data
 
+import com.example.feature.player.profile.Mapper
 import com.example.feature.player.profile.domain.models.PlayerInfoDomainData
 
 data class PlayerInfoData(
@@ -17,7 +18,11 @@ data class PlayerInfoData(
     val locCountryCode: String = "",
     val isContributor: Boolean = false,
     val isSubscriber: Boolean = false,
-)
+): Mapper<PlayerInfoData, PlayerInfoDomainData> {
+    override fun mapTo(first: PlayerInfoData): PlayerInfoDomainData {
+        TODO("Not yet implemented")
+    }
+}
 
 fun PlayerInfoData.mapToDomain() = PlayerInfoDomainData(
     accountId,

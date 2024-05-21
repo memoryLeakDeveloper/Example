@@ -8,6 +8,6 @@ class PlayersRepositoryImpl @Inject constructor(private val playerSearchCloudDat
     PlayersRepository {
 
     override suspend fun getPlayers(query: String) =
-        playerSearchCloudDataSource.fetchCloud(query).map { it.mapToDomain() }
+        playerSearchCloudDataSource.fetchCloud(query).map { it.mapToDomain(it) }
 
 }

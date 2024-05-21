@@ -11,5 +11,5 @@ buildscript {
 }
 
 plugins {
-    id("com.google.dagger.hilt.android") version ("2.44") apply false
+    id("com.google.dagger.hilt.android") version (Versions.hilt) apply false
 }

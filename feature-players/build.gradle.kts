@@ -6,9 +6,19 @@ plugins {
 
 apply<MainGradlePlugin>()
 
-
 android {
     namespace = "com.example.feature.players"
+    compileSdk = ProjectConfig.compileSdk
+
+    defaultConfig {
+        minSdk = ProjectConfig.minSdk
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_18
+        targetCompatibility = JavaVersion.VERSION_18
+    }
 
     buildFeatures {
         compose = true
@@ -40,4 +50,6 @@ dependencies {
     ktor()
     commonApi()
     commonUi()
+    commonMapping()
+
 }

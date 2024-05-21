@@ -1,5 +1,6 @@
 package com.example.feature.player.profile.ui.screen
 
+import android.annotation.SuppressLint
 import android.util.Log
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Arrangement
@@ -92,6 +93,7 @@ fun PlayerProfileScreenUI(
     }
 }
 
+@SuppressLint("UnrememberedMutableState")
 @Preview
 @Composable
 fun PlayerProfileScreenPreview() {

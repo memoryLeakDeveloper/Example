@@ -3,7 +3,7 @@ object Versions {
     const val composeMaterial3 = "1.2.1"
     const val composeCompiler = "1.4.6"
     const val composeAnimation = "1.7.0-alpha08"
-    const val hilt = "2.45"
+    const val hilt = "2.51.1"
     const val room = "2.5.0"
     const val navigationCompose = "2.8.0-alpha08"
     const val hiltComposeNavigation = "1.2.0"
@@ -12,4 +12,5 @@ object Versions {
     const val kotlin = "1.8.20"
     const val composePreview = "1.6.7"
     const val coil = "2.6.0"
+    const val immutableCollections = "0.3.5"
 }

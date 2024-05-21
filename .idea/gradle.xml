@@ -25,6 +25,7 @@
             <option value="$PROJECT_DIR$/common" />
             <option value="$PROJECT_DIR$/common/common-api" />
             <option value="$PROJECT_DIR$/common/common-db" />
+            <option value="$PROJECT_DIR$/common/common-mapping" />
             <option value="$PROJECT_DIR$/common/common-navigation" />
             <option value="$PROJECT_DIR$/common/common-preferences" />
             <option value="$PROJECT_DIR$/common/common-ui" />

@@ -1,14 +1,15 @@
 package com.example.feature.players.ui.screen
 
 import android.util.Log
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.feature.players.domain.usecase.FetchListPlayersFromCloudUseCase
+import com.example.feature.players.ui.models.PlayerUiData
 import com.example.feature.players.ui.models.mapToUi
 import com.foe.common.api.utils.getResult
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -41,7 +42,7 @@ class PlayersScreenViewModel @Inject constructor(private val fetchListPlayersFro
         job?.cancel()
         if (query.trim().length < 3) {
             _state.update {
-                it.copy(list = emptyList(), isLoading = false, isRefresh = false)
+                it.copy(list = persistentListOf(), isLoading = false, isRefresh = false)
             }
             return
         }
@@ -52,7 +53,11 @@ class PlayersScreenViewModel @Inject constructor(private val fetchListPlayersFro
                         val result = it.result.map { it.mapToUi() }
                         Log.d("bugger", "size = ${result.size}")
                         _state.update {
-                            it.copy(list = result, isLoading = false, isRefresh = false)
+                            it.copy(
+                                list = persistentListOf<PlayerUiData>().addAll(result),
+                                isLoading = false,
+                                isRefresh = false
+                            )
                         }
                     },
                     loading = {
@@ -71,10 +76,4 @@ class PlayersScreenViewModel @Inject constructor(private val fetchListPlayersFro
         }
     }
 
-
-}
-
-@Composable
-inline fun <T : Any> PlayersScreenViewModel.rememberOnEvent(intent: PlayersScreenIntent): ((T) -> Unit) {
-    return remember { { (this::onEvent)(intent) } }
 }

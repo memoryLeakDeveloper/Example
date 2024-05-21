@@ -1,5 +1,7 @@
 package com.example.feature.players.data
 
+import com.example.common.mapping.DataModel
+import com.example.common.mapping.DataToDomainMapper
 import com.example.feature.players.domain.models.PlayerDomainData
 
 data class PlayerData(
@@ -8,6 +10,14 @@ data class PlayerData(
     val name: String? = " ",
     val lastMitchTime: String? = " ",
     val similarity: String? = " ",
-)
-
-fun PlayerData.mapToDomain() = PlayerDomainData(accountId, avatar, name, lastMitchTime, similarity)
+) : DataModel, DataToDomainMapper<PlayerData, PlayerDomainData> {
+    override fun mapToDomain(data: PlayerData): PlayerDomainData {
+        return PlayerDomainData(
+            data.accountId,
+            data.avatar,
+            data.name,
+            data.lastMitchTime,
+            data.similarity
+        )
+    }
+}

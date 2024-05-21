@@ -6,7 +6,8 @@ object Dependencies {
     const val composeUi = "androidx.compose.ui:ui:${Versions.compose}"
     const val composeUiGraphics = "androidx.compose.ui:ui-graphics:${Versions.compose}"
     const val composeUiTooling = "androidx.compose.ui:ui-tooling:${Versions.compose}"
-    const val composeUiToolingPreview = "androidx.compose.ui:ui-tooling-preview:${Versions.composePreview}"
+    const val composeUiToolingPreview =
+        "androidx.compose.ui:ui-tooling-preview:${Versions.composePreview}"
     const val composeRuntime = "androidx.compose.runtime:runtime:${Versions.compose}"
     const val composeAnimation = "androidx.compose.animation:animation:${Versions.composeAnimation}"
     const val composeBom = "androidx.compose:compose-bom:2024.05.00"
@@ -17,24 +18,21 @@ object Dependencies {
 
     const val ktorClient = "io.ktor:ktor-client-android:${Versions.ktor}"
     const val ktorClientSerialization = "io.ktor:ktor-client-serialization:${Versions.ktor}"
-    const val kotlinxSerialiation = "org.jetbrains.kotlinx:kotlinx-serialization-json:${Versions.kotlinxSerialization}"
+    const val kotlinxSerialiation =
+        "org.jetbrains.kotlinx:kotlinx-serialization-json:${Versions.kotlinxSerialization}"
     const val ktorClientLogging = "io.ktor:ktor-client-logging-jvm:${Versions.ktor}"
     const val ktorSerialization = "org.jetbrains.kotlin:kotlin-serialization:${Versions.kotlin}"
 
-    const val roomRuntime = "androidx.room:room-runtime:${Versions.room}"
-    const val roomCompiler = "androidx.room:room-compiler:${Versions.room}"
-    const val roomKtx = "androidx.room:room-ktx:${Versions.room}"
-
-    const val navigationCompose = "androidx.navigation:navigation-compose:${Versions.navigationCompose}"
-    const val hiltComposeNavigation = "androidx.hilt:hilt-navigation-compose:${Versions.hiltComposeNavigation}"
+    const val navigationCompose =
+        "androidx.navigation:navigation-compose:${Versions.navigationCompose}"
+    const val hiltComposeNavigation =
+        "androidx.hilt:hilt-navigation-compose:${Versions.hiltComposeNavigation}"
 
     const val coil = "io.coil-kt:coil-compose:${Versions.coil}"
-}
 
-fun DependencyHandler.room() {
-//    implementation(Dependencies.roomRuntime)
-//    implementation(Dependencies.roomKtx)
-//    kapt(Dependencies.roomCompiler)
+    const val immutableCollections =
+        "org.jetbrains.kotlinx:kotlinx-collections-immutable:${Versions.immutableCollections}"
+
 }
 
 fun DependencyHandler.ktor() {
@@ -53,6 +51,7 @@ fun DependencyHandler.compose() {
     implementation(Dependencies.coil)
     implementation(Dependencies.composeAnimation)
     implementation(platform(Dependencies.composeBom))
+    implementation(Dependencies.immutableCollections)
 
     debugImplementation(Dependencies.composeUiToolingPreview)
 }
@@ -66,7 +65,6 @@ fun DependencyHandler.navigation() {
     implementation(Dependencies.navigationCompose)
     implementation(Dependencies.hiltComposeNavigation)
 }
-
 
 fun DependencyHandler.commonUi() {
     implementation(project(":common:common-ui"))
@@ -106,4 +104,8 @@ fun DependencyHandler.featurePlayerProfile() {
 
 fun DependencyHandler.featureSplashScreen() {
     implementation(project(":feature-splashscreen"))
+}
+
+fun DependencyHandler.commonMapping() {
+    implementation(project(":common:common-mapping"))
 }

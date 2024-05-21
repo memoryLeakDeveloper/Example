@@ -1,6 +1,7 @@
 package com.example.feature.players.ui.screen
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.animateIntAsState
 import androidx.compose.foundation.layout.Box
@@ -9,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -41,6 +43,8 @@ import androidx.compose.ui.zIndex
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.feature.players.ui.item.PlayerItem
 import com.example.feature.players.ui.item.PlayerShimmerItem
+import com.example.feature.players.ui.models.PlayerUiData
+import kotlinx.collections.immutable.ImmutableList
 import kotlinx.coroutines.delay
 import kotlin.math.roundToInt
 
@@ -70,9 +74,11 @@ fun PlayersScreenUI(
     val lazyColumnState = rememberLazyListState()
     val focusRequester = remember { FocusRequester() }
     val focusManager = LocalFocusManager.current
-    val onClickItem: (Long, String) -> Unit = { id, name ->
-        focusManager.clearFocus()
-        navigateToProfile(id, name)
+    val onClickItem: (Long, String) -> Unit = remember {
+        { id, name ->
+            focusManager.clearFocus()
+            navigateToProfile(id, name)
+        }
     }
     val pullRefreshState = rememberPullToRefreshState()
     val hapticFeedback = LocalHapticFeedback.current
@@ -133,26 +139,23 @@ fun PlayersScreenUI(
                     onEvent(PlayersScreenIntent.OnSearchFieldValueChanged(it))
                 }, label = { Text("Введите имя игрока") }
             )
-            LazyColumn(modifier = Modifier.weight(1f), lazyColumnState) {
-                if (state.value.isLoading)
+            if (state.value.isLoading) {
+                LazyColumn(modifier = Modifier.weight(1f), lazyColumnState) {
                     items(fakeList()) {
                         PlayerShimmerItem()
                     }
-                else
-                    itemsIndexed(state.value.list) { index, item ->
-                        PlayerItem(
-                            Modifier
-                                .zIndex((state.value.list.size - index).toFloat())
-                                .graphicsLayer {
-                                    rotationZ = cardRotation * if (index % 2 == 0) 1 else -1
-                                    translationY = (cardOffset * ((5f - (index + 1)) / 30f)).dp
-                                        .roundToPx()
-                                        .toFloat()
-                                }, item, onClickItem
-                        )
-                    }
+                }
+            } else {
+                Log.d("bugger", "${state.value.list}")
+                List(
+                    Modifier.weight(1f),
+                    lazyColumnState,
+                    state.value.list,
+                    cardRotation,
+                    cardOffset,
+                    onClickItem
+                )
             }
-
             if (pullRefreshState.isRefreshing) {
                 PullToRefreshContainer(state = pullRefreshState)
             }
@@ -164,12 +167,38 @@ fun PlayersScreenUI(
     }
 }
 
+@Composable
+fun List(
+    modifier: Modifier,
+    lazyColumnState: LazyListState,
+    list: ImmutableList<PlayerUiData>,
+    cardRotation: Float,
+    cardOffset: Int,
+    onClickItem: (Long, String) -> Unit
+) {
+    LazyColumn(modifier, lazyColumnState) {
+        itemsIndexed(list) { index, item ->
+            PlayerItem(
+                Modifier
+                    .zIndex((list.size - index).toFloat())
+                    .graphicsLayer {
+                        rotationZ = cardRotation * if (index % 2 == 0) 1 else -1
+                        translationY = (cardOffset * ((5f - (index + 1)) / 30f)).dp
+                            .roundToPx()
+                            .toFloat()
+                    },
+                item, onClickItem
+            )
+        }
+    }
+}
+
 private fun fakeList(): List<Unit> {
     return mutableListOf<Unit>().apply {
         repeat(10) {
             add(Unit)
         }
-    }
+    }.toList()
 }
 
 @SuppressLint("UnrememberedMutableState")

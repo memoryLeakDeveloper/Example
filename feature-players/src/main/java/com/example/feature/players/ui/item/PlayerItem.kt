@@ -1,6 +1,5 @@
 package com.example.feature.players.ui.item
 
-import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -61,14 +60,12 @@ fun PlayerItem(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.Start
             ) {
-                Log.d("bugger", "PlayerItem ${item.name}")
                 Text(text = item.name, maxLines = 1, overflow = TextOverflow.Ellipsis)
             }
             Spacer(modifier = Modifier.height(4.dp))
         }
     }
 }
-
 
 @Preview
 @Composable

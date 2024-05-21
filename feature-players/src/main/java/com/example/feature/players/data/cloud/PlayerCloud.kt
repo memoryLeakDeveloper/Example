@@ -1,5 +1,7 @@
 package com.example.feature.players.data.cloud
 
+import com.example.common.mapping.CloudModel
+import com.example.common.mapping.CloudToDataMapper
 import com.example.feature.players.data.PlayerData
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -11,6 +13,15 @@ data class PlayerCloud(
     @SerialName("personaname") val name: String? = " ",
     @SerialName("last_match_time") val lastMitchTime: String? = " ",
     @SerialName("similarity") val similarity: String? = " ",
-)
+) : CloudModel, CloudToDataMapper<PlayerCloud, PlayerData> {
 
-fun PlayerCloud.mapToData() = PlayerData(accountId, avatar, name, lastMitchTime, similarity)
+    override fun mapToData(cloud: PlayerCloud): PlayerData {
+        return PlayerData(
+            cloud.accountId,
+            cloud.avatar,
+            cloud.name,
+            cloud.lastMitchTime,
+            cloud.similarity
+        )
+    }
+}
